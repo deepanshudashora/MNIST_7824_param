@@ -7,6 +7,7 @@ from utils import data_transformation,get_device, \
                   fit_model, plot_accuracy_report, \
                   show_random_results, plot_misclassified, \
                   calculate_accuracy_per_class
+import os
 import json 
 
 # CUDA?

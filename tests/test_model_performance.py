@@ -30,16 +30,15 @@ class TestModelPerformance:
     def test_accuracy_threshold(self):
         """Verify model achieves 99.4% accuracy on test set"""
 
-        # collect last 5 epoch accuracy`
+        # collect accuracy details for all epochs
         
         if os.path.exists('logs/metrics.json'):
             with open('logs/metrics.json', 'r') as f:
                 metrics = json.load(f)
-                last_5_epochs = metrics['test_accuracy'][-5:]
+                accuracy_details_for_all_epochs = metrics['test_accuracy']
 
-            # Now check if any of the last 5 epochs have accuracy greater than 99.4
-            assert any(epoch >= 99.4 for epoch in last_5_epochs), \
-                f"Model accuracy {last_5_epochs} should be ≥ 99.4%"
+            assert any(epoch >= 99.4 for epoch in accuracy_details_for_all_epochs), \
+                f"Model accuracy {accuracy_details_for_all_epochs} should be ≥ 99.4%"
 
     def test_class_accuracies(self):
         """Verify per-class accuracy"""
