@@ -1,0 +1,39 @@
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.8'
+        
+    - name: Install dependencies
+      run: |
+        pip install uv
+        uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu --system
+        uv pip install pytest tqdm matplotlib numpy torchsummary --system
+        uv pip install -e . --system
+        
+    - name: Run pre-training tests
+      run: |
+        python -m pytest tests/test_model_structure.py -v
+        
+    - name: Train model
+      run: |
+        python train.py
+        
+    - name: Run post-training tests
+      run: |
+        python -m pytest tests/test_model_performance.py -v
+        
