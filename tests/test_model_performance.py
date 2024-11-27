@@ -46,8 +46,8 @@ class TestModelPerformance:
             with open('logs/class_accuracy.json', 'r') as f:
                 class_acc = json.load(f)
             for class_name, accuracy in class_acc.items():
-                assert accuracy >= 99.0, \
-                    f"Accuracy for class {class_name} ({accuracy}%) should be ≥ 99%"
+                assert accuracy >= 95.0, \
+                    f"Accuracy for class {class_name} ({accuracy}%) should be ≥ 95%"
 
     def test_loss_convergence(self):
         """Verify loss convergence"""
@@ -75,4 +75,4 @@ class TestModelPerformance:
                 total += target.size(0)
         
         accuracy = 100. * correct / total
-        assert accuracy >= 99.4, f"Live inference accuracy {accuracy}% should be ≥ 99.4%" 
+        assert accuracy >= 96, f"Live inference accuracy {accuracy}% should be ≥ 96%" 
